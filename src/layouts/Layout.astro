@@ -39,7 +39,7 @@ const { title, description = "Reto Playas Costa Rica - Documentando +600 playas"
 		</main>
 		<Footer />
 		
-		<script>
+		<script is:inline>
 			if (window.netlifyIdentity) {
 				window.netlifyIdentity.on("init", user => {
 					if (!user) {
@@ -48,17 +48,23 @@ const { title, description = "Reto Playas Costa Rica - Documentando +600 playas"
 						});
 					}
 				});
+			}
 
-				// Handle all token types from any page
+			// Immediate check for token redirection
+			(function() {
 				const hash = window.location.hash;
 				if (hash.includes('invite_token=') || 
-				    hash.includes('confirmation_token=') || 
-				    hash.includes('recovery_token=') ||
-				    hash.includes('_token=')) {
-					// Redirect to admin to complete the flow
-					window.location.href = "/admin/" + hash;
+					hash.includes('confirmation_token=') || 
+					hash.includes('recovery_token=') ||
+					hash.includes('email_change_token=') ||
+					hash.includes('_token=')) {
+					
+					// If we are not already in /admin/, redirect immediately
+					if (!window.location.pathname.startsWith('/admin')) {
+						window.location.href = "/admin/" + hash;
+					}
 				}
-			}
+			})();
 		</script>
 	</body>
 </html>
