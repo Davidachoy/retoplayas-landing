@@ -49,10 +49,14 @@ const { title, description = "Reto Playas Costa Rica - Documentando +600 playas"
 					}
 				});
 
-				// Check for confirmation token in URL
-				if (window.location.hash.includes('_token=')) {
-					// Open widget to trigger confirmation flow
-					window.netlifyIdentity.open();
+				// Handle all token types from any page
+				const hash = window.location.hash;
+				if (hash.includes('invite_token=') || 
+				    hash.includes('confirmation_token=') || 
+				    hash.includes('recovery_token=') ||
+				    hash.includes('_token=')) {
+					// Redirect to admin to complete the flow
+					window.location.href = "/admin/" + hash;
 				}
 			}
 		</script>
