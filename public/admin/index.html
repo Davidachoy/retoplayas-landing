@@ -11,7 +11,35 @@
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
     
     <script>
-      // Netlify Identity Widget initialization
+      // Force Identity widget to open if token is present
+      const checkAndOpenIdentity = () => {
+        if (!window.netlifyIdentity) {
+          console.log("Netlify Identity not loaded yet...");
+          return;
+        }
+
+        const hash = window.location.hash;
+        console.log("Checking hash:", hash);
+
+        if (hash.includes('invite_token=') || 
+            hash.includes('confirmation_token=') || 
+            hash.includes('recovery_token=') ||
+            hash.includes('_token=')) {
+          
+          console.log("Token detected! Attempting to open widget...");
+          
+          // Try to open immediately
+          window.netlifyIdentity.open();
+
+          // Also listen for init just in case
+          window.netlifyIdentity.on("init", () => {
+             console.log("Identity init event fired. Opening widget.");
+             window.netlifyIdentity.open();
+          });
+        }
+      };
+
+      // Initialization logic
       if (window.netlifyIdentity) {
         window.netlifyIdentity.on("init", user => {
           if (!user) {
@@ -20,17 +48,18 @@
             });
           }
         });
-
-        // Handle all types of tokens: invite, confirmation, recovery
-        const hash = window.location.hash;
-        if (hash.includes('invite_token=') || 
-            hash.includes('confirmation_token=') || 
-            hash.includes('recovery_token=') ||
-            hash.includes('_token=')) {
-          // Open widget to complete the flow
-          window.netlifyIdentity.open();
-        }
       }
+
+      // Retry mechanism to ensure it opens
+      let attempts = 0;
+      const interval = setInterval(() => {
+        if (window.netlifyIdentity) {
+           checkAndOpenIdentity();
+           // If widget is open or we tried enough times, clear interval
+           attempts++;
+           if (attempts > 5) clearInterval(interval);
+        }
+      }, 500); // Check every 500ms
     </script>
   </body>
 </html>
