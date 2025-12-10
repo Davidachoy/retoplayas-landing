@@ -28,21 +28,30 @@ const services = [
 ];
 ---
 
-<Layout title="Sobre Mí | Reto Playas CR">
+<Layout 
+  title="Sobre Cristóbal Quesada | Creador de Reto Playas Costa Rica"
+  description="Conoce a Cristóbal Quesada, creador de Reto Playas CR. Un proyecto que nació en 2024 para documentar todas las playas de Costa Rica. Desde San José hasta Santa Teresa, explorando cada rincón de nuestras costas."
+  image="/images/about-me.jpeg"
+>
   <!-- HERO SECTION -->
   <section class="relative h-[60vh] flex items-center justify-center overflow-hidden">
     <div class="absolute inset-0">
       <div class="absolute inset-0 bg-gradient-to-r from-ocean-deep/90 to-transparent z-10"></div>
       <img 
-        src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?q=80&w=2069" 
-        alt="Entrenamiento en playa" 
+        src="/images/about-me.jpeg" 
+        alt="Cristóbal Quesada - Reto Playas CR" 
         class="w-full h-full object-cover"
+        width="1920"
+        height="1080"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
       />
     </div>
     
     <div class="relative z-20 container mx-auto px-4 text-white">
       <div class="max-w-2xl">
-        <h1 class="font-display text-6xl md:text-8xl mb-4">David Achoy</h1>
+        <h1 class="font-display text-6xl md:text-8xl mb-4">Cristóbal Quesada</h1>
         <p class="font-body text-xl md:text-2xl text-ocean-foam font-light tracking-wide">
           Preparador Físico & Explorador de Costa Rica
         </p>
@@ -57,23 +66,34 @@ const services = [
         <div class="prose prose-lg text-text-secondary font-body">
           <h2 class="font-display text-4xl text-ocean-deep mb-6">La Historia</h2>
           <p>
-            En el 2020, con el mundo en pausa, decidí que era momento de reconectar con lo esencial. 
-            Tomé mi mochila y comencé a recorrer la costa, playa por playa. Lo que empezó como un escape 
-            se convirtió en una misión: documentar cada rincón de arena de nuestro país.
+            Desde hace años tenía el sueño de conocer todas las playas de Costa Rica, y en mayo del 2024 decidí empezar esta gran aventura: RetoPlayasCR. No sé cuántos años tomará completar el reto, pero estoy disfrutando cada kilómetro, cada reel y cada playa que conozco.
           </p>
           <p>
-            Soy preparador físico de profesión y aventurero por convicción. Mi trabajo financiando mis viajes 
-            me ha enseñado que el equilibrio entre el movimiento del cuerpo y la exploración de la naturaleza 
-            es la clave de una vida plena.
+            Después de vivir toda mi vida en San José, recientemente me mudé al sector de Santa Teresa, un cambio enorme que forma parte de esta experiencia. Aquí espero seguir creciendo, creando contenido y avanzando en un proyecto que para mí es el más tuanis del universo.
           </p>
-          <div class="mt-8 p-6 bg-white border-l-4 border-sunset-gold italic rounded-r-lg">
-            "No se trata solo de llegar a la playa, sino de respetar el camino y dejar el lugar mejor de lo que lo encontramos."
-          </div>
         </div>
         
         <div class="grid grid-cols-2 gap-4">
-          <img src="https://images.unsplash.com/photo-1571008887538-b36bb32f4571" class="rounded-2xl shadow-lg transform translate-y-8" alt="Explorando">
-          <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48" class="rounded-2xl shadow-lg transform -translate-y-8" alt="Entrenando">
+          <div class="rounded-2xl shadow-lg transform translate-y-12 overflow-hidden">
+            <img 
+              src="/images/about-me2.jpeg" 
+              class="w-full h-full object-cover scale-130" 
+              alt="Reto Playas CR" 
+              width="800"
+              height="800"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <img 
+            src="/images/about-me3.jpeg" 
+            class="rounded-2xl shadow-lg transform -translate-y-8" 
+            alt="Reto Playas CR" 
+            width="800"
+            height="800"
+            loading="lazy"
+            decoding="async"
+          />
         </div>
       </div>
     </div>
@@ -138,4 +158,5 @@ const services = [
     </div>
   </section>
 </Layout>
+
 

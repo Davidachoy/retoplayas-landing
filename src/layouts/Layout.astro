@@ -6,19 +6,74 @@ import Footer from '../components/Footer.astro';
 interface Props {
 	title: string;
 	description?: string;
+	image?: string;
+	canonicalURL?: string;
+	type?: string;
 }
 
-const { title, description = "Reto Playas Costa Rica - Documentando +600 playas" } = Astro.props;
+const { 
+	title, 
+	description = "Reto Playas Costa Rica - Documentando +600 playas de Costa Rica. Explora mapas interactivos, descubre playas poco conocidas y conoce la verdadera riqueza de nuestro país.",
+	image = "/images/hero.JPG",
+	canonicalURL,
+	type = "website"
+} = Astro.props;
+
+const siteURL = Astro.site?.href || "https://retoplayascr.com";
+const currentURL = canonicalURL || new URL(Astro.url.pathname, siteURL).href;
+const ogImage = new URL(image, siteURL).href;
 ---
 
 <!doctype html>
 <html lang="es">
 	<head>
 		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="description" content={description} />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
+		<link rel="canonical" href={currentURL} />
+		<link rel="icon" type="image/png" href="/images/logo.png" />
+		
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content={type} />
+		<meta property="og:url" content={currentURL} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={ogImage} />
+		<meta property="og:locale" content="es_CR" />
+		<meta property="og:site_name" content="Reto Playas Costa Rica" />
+		
+		<!-- Twitter -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:url" content={currentURL} />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImage} />
+		<meta name="twitter:creator" content="@retoplayascr" />
+		
+		<!-- Schema.org JSON-LD -->
+		<script type="application/ld+json" set:html={JSON.stringify({
+			"@context": "https://schema.org",
+			"@type": "TravelAgency",
+			"name": "Reto Playas Costa Rica",
+			"description": description,
+			"url": siteURL,
+			"logo": new URL("/images/logo.png", siteURL).href,
+			"image": ogImage,
+			"sameAs": [
+				"https://instagram.com/retoplayascr",
+				"https://tiktok.com/@retoplayascr",
+				"https://www.youtube.com/@RetoPlayasCR"
+			],
+			"founder": {
+				"@type": "Person",
+				"name": "Cristóbal Quesada"
+			},
+			"areaServed": {
+				"@type": "Country",
+				"name": "Costa Rica"
+			}
+		})} />
 		
 		<!-- Google Fonts -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">

@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://retoplayascr.com/sitemap.xml
+
+# Disallow admin
+User-agent: *
+Disallow: /admin/

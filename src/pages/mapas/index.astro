@@ -1,20 +1,42 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const allPlayas = await getCollection('playas');
 
 const provincias = [
-  { name: "Guanacaste", count: "45 playas", img: "https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?q=80&w=1000", slug: "guanacaste" },
-  { name: "Puntarenas", count: "52 playas", img: "https://images.unsplash.com/photo-1583150495360-1e967527653f?q=80&w=1000", slug: "puntarenas" },
-  { name: "Limón", count: "30 playas", img: "https://images.unsplash.com/photo-1590623237191-2a944a95843c?q=80&w=1000", slug: "limon" }
-];
+  { name: "Guanacaste", img: "/images/guanacaste.jpg", slug: "guanacaste" },
+  { name: "Puntarenas", img: "/images/puntarenas.jpg", slug: "puntarenas" },
+  { name: "Limón", img: "/images/limon.jpg", slug: "limon" }
+].map(prov => {
+  const playasProvincia = allPlayas.filter(playa => playa.data.provincia === prov.slug);
+  const visitedCount = playasProvincia.filter(p => p.data.visitada).length;
+  return {
+    ...prov,
+    visitedCount
+  };
+});
+
+const totalVisited = allPlayas.filter(p => p.data.visitada).length;
 ---
 
-<Layout title="Mapas por Provincia | Reto Playas CR">
+<Layout 
+  title="Mapas de Playas por Provincia | Reto Playas Costa Rica"
+  description="Explora mapas interactivos de playas por provincia en Costa Rica. Guanacaste, Puntarenas y Limón. Cada marcador representa una playa documentada con fotos, ubicación e información detallada."
+  image="/images/hero.JPG"
+>
   <div class="pt-24 pb-12 bg-sand-light min-h-screen">
     <div class="container mx-auto px-4">
       <h1 class="font-display text-5xl md:text-6xl text-ocean-deep mb-4 text-center">Mapas de Playas</h1>
-      <p class="font-body text-xl text-text-secondary text-center max-w-2xl mx-auto mb-16">
+      <p class="font-body text-xl text-text-secondary text-center max-w-2xl mx-auto mb-4">
         Explora nuestra colección de playas por provincia. Cada marcador es una aventura vivida.
       </p>
+      <div class="text-center mb-16">
+        <div class="inline-block bg-white rounded-xl shadow-md px-8 py-4 border-2 border-ocean-mid">
+          <div class="font-display text-4xl md:text-5xl text-sunset-coral mb-1">{totalVisited}</div>
+          <div class="font-body text-sm uppercase tracking-widest text-ocean-deep">Total de Playas Visitadas</div>
+        </div>
+      </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         {provincias.map(prov => (
@@ -24,7 +46,7 @@ const provincias = [
             
             <div class="absolute bottom-0 left-0 w-full p-8 z-20 text-white transform group-hover:-translate-y-2 transition-transform">
               <h2 class="font-display text-5xl mb-2">{prov.name}</h2>
-              <p class="font-body text-lg opacity-90 mb-4">{prov.count} Documentadas</p>
+              <p class="font-body text-lg opacity-90 mb-4">{prov.visitedCount} Playas Visitadas</p>
               <span class="inline-block bg-sunset-coral text-white px-6 py-2 rounded-full font-display tracking-wider hover:bg-sunset-gold transition-colors">
                 Ver Mapa
               </span>

@@ -3,19 +3,23 @@ import Layout from '../layouts/Layout.astro';
 
 // Placeholder data for stats
 const stats = [
-  { value: "127", label: "Playas Visitadas" },
+  { value: "200+", label: "Playas Visitadas" },
   { value: "1200+", label: "Km de Costa" },
   { value: "3", label: "Provincias" }
 ];
 
 const faqItems = [
-  { question: "¿Por qué empezó este proyecto?", answer: "Nació de la necesidad de documentar y preservar la belleza de nuestras costas, compartiendo información accesible para todos." },
+  { question: "¿Por qué nació este proyecto?", answer: "En el 2020 quise salir de la rutina y descubrir una playa poco conocida. Lo que parecía una simple escapada se convirtió en una gran sorpresa: no existía un registro completo y confiable de todas las playas de Costa Rica. En un país donde el turismo es parte de nuestra identidad, esto me hizo ver una oportunidad única: crear una plataforma que le permitiera a cada costarricense explorar, comparar y elegir entre casi 700 playas, desde las más famosas hasta las joyas escondidas. Así nació este proyecto: para inspirar, informar y conectar a las personas con la verdadera riqueza de nuestro país… sus playas." },
   { question: "¿Puedo acompañarlo en un viaje?", answer: "¡Sí! Organizo caminatas y limpiezas de playa cada dos meses. Mantente atento a las redes sociales." },
-  { question: "¿Cómo puedo apoyar el proyecto?", answer: "Puedes comprar merch en la tienda, compartir el contenido, o unirte a las limpiezas de playa." }
+  { question: "¿Cómo puedo apoyar el proyecto?", answer: "Puedes comprar merch en la tienda, comprando una guia retoplayascr, compartir el contenido, o unirte a las limpiezas de playa." }
 ];
 ---
 
-<Layout title="Reto Playas Costa Rica | +600 playas por descubrir">
+<Layout 
+  title="Reto Playas Costa Rica | +600 Playas por Descubrir | Mapas Interactivos"
+  description="Explora más de 600 playas de Costa Rica con mapas interactivos. Descubre playas poco conocidas, información detallada y la verdadera riqueza de nuestras costas. Documentando cada rincón de la costa más rica del mundo."
+  image="/images/hero.JPG"
+>
   
   <!-- HERO SECTION -->
   <section class="relative h-screen w-full overflow-hidden flex items-center justify-center">
@@ -23,9 +27,14 @@ const faqItems = [
     <div class="absolute inset-0 z-0">
       <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-ocean-deep/90 z-10"></div>
       <img 
-        src="https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?q=80&w=2070&auto=format&fit=crop" 
+        src="/images/hero.JPG" 
         alt="Costa Rica Beach Sunset" 
         class="w-full h-full object-cover"
+        width="1920"
+        height="1080"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
       />
       <!-- <video autoplay muted loop playsinline class="w-full h-full object-cover">
         <source src="/hero-video.mp4" type="video/mp4">
@@ -79,7 +88,7 @@ const faqItems = [
         {[
           { icon: "🌊", title: "Documentar", text: "Fotografiar y geolocalizar cada playa, desde las más turísticas hasta las secretas." },
           { icon: "🌿", title: "Proteger", text: "Concientizar sobre la contaminación y organizar limpiezas en zonas afectadas." },
-          { icon: "📍", title: "Compartir", text: "Información real y actualizada para que todos puedan disfrutar de nuestras costas." }
+          { icon: "📍", title: "Compartir", text: "Exponer la belleza de lugares poco conocidos para hacer que los costarricenses entiendan el verdadero valor de nuestra tierra." }
         ].map(item => (
           <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow text-center border-b-4 border-ocean-mid">
             <div class="text-5xl mb-4">{item.icon}</div>
@@ -98,44 +107,29 @@ const faqItems = [
       
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         {[
-          { name: "Guanacaste", count: "45 playas", img: "https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?q=80&w=1000", slug: "guanacaste" },
-          { name: "Puntarenas", count: "52 playas", img: "https://images.unsplash.com/photo-1583150495360-1e967527653f?q=80&w=1000", slug: "puntarenas" },
-          { name: "Limón", count: "30 playas", img: "https://images.unsplash.com/photo-1590623237191-2a944a95843c?q=80&w=1000", slug: "limon" }
+          { name: "Guanacaste", img: "/images/guanacaste.jpg", slug: "guanacaste" },
+          { name: "Puntarenas", img: "/images/puntarenas.jpg", slug: "puntarenas" },
+          { name: "Limón", img: "/images/limon.jpg", slug: "limon" }
         ].map(prov => (
           <a href={`/mapas/${prov.slug}`} class="group relative h-96 rounded-2xl overflow-hidden cursor-pointer">
             <div class="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors z-10"></div>
-            <img src={prov.img} alt={prov.name} class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" />
+            <img 
+              src={prov.img} 
+              alt={prov.name} 
+              class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" 
+              width="1000"
+              height="600"
+              loading="lazy"
+              decoding="async"
+            />
             <div class="absolute bottom-0 left-0 p-8 z-20 text-white">
               <h3 class="font-display text-4xl mb-1">{prov.name}</h3>
-              <p class="font-body text-sm uppercase tracking-widest mb-4">{prov.count}</p>
               <span class="inline-flex items-center text-sunset-gold font-bold">
                 Explorar mapa <svg class="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
               </span>
             </div>
           </a>
         ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- FEATURED CONTENT -->
-  <section class="py-20 bg-sand-light overflow-hidden">
-    <div class="container mx-auto px-4">
-      <div class="flex justify-between items-end mb-12">
-        <div>
-          <h2 class="font-display text-4xl md:text-5xl text-ocean-deep">Últimas Aventuras</h2>
-          <p class="text-text-secondary mt-2">Síguenos en @retoplayascr</p>
-        </div>
-        <a href="https://instagram.com/retoplayascr" target="_blank" class="hidden md:inline-block text-sunset-coral font-bold hover:text-ocean-deep transition-colors">Ver todo en Instagram &rarr;</a>
-      </div>
-
-      <!-- Placeholder for Grid/Carousel -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-         {[1, 2, 3, 4].map((i) => (
-           <div class="aspect-[9/16] bg-gray-200 rounded-lg animate-pulse flex items-center justify-center text-gray-400">
-             <span class="font-display text-2xl">Instagram Post {i}</span>
-           </div>
-         ))}
       </div>
     </div>
   </section>
