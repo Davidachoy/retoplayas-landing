@@ -4,7 +4,7 @@ const links = [
   { name: "Mapas", href: "/mapas" },
   { name: "Blog", href: "/blog" },
   { name: "Sobre Mí", href: "/sobre-mi" },
-  { name: "Merch", href: "/merch" },
+  { name: "Tienda", href: "/tienda" },
 ];
 ---
 
@@ -40,7 +40,7 @@ const links = [
     </nav>
 
     <!-- Mobile Menu Overlay -->
-    <div id="mobile-menu" class="fixed inset-0 bg-ocean-deep transform translate-x-full transition-transform duration-300 flex flex-col justify-center items-center md:hidden">
+    <div id="mobile-menu" class="fixed inset-0 bg-ocean-deep transform translate-x-full transition-transform duration-300 flex flex-col justify-center items-center md:hidden z-40">
       <nav class="flex flex-col space-y-8 text-center">
         {links.map((link) => (
           <a href={link.href} class="text-white text-2xl font-display hover:text-sunset-gold transition-colors">
@@ -71,13 +71,29 @@ const links = [
   menuBtn?.addEventListener('click', () => {
     isMenuOpen = !isMenuOpen;
     if (isMenuOpen) {
+      // Asegurar que el background siempre se muestre
       mobileMenu?.classList.remove('translate-x-full');
+      // Forzar el background para garantizar que siempre se muestre
+      if (mobileMenu) {
+        mobileMenu.classList.add('bg-ocean-deep');
+        // También aplicar inline style como respaldo
+        mobileMenu.style.backgroundColor = '#1A3A4A'; // ocean-deep color
+      }
       document.body.style.overflow = 'hidden';
-      // Change icon to X (optional implementation)
     } else {
       mobileMenu?.classList.add('translate-x-full');
       document.body.style.overflow = '';
     }
+  });
+
+  // Cerrar menú al hacer clic en un link
+  const menuLinks = mobileMenu?.querySelectorAll('a');
+  menuLinks?.forEach(link => {
+    link.addEventListener('click', () => {
+      isMenuOpen = false;
+      mobileMenu?.classList.add('translate-x-full');
+      document.body.style.overflow = '';
+    });
   });
 </script>
 

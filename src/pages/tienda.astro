@@ -1,0 +1,119 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const tiendaItems = await getCollection('tienda');
+// Filter active items if needed, though schema has 'available' default true
+
+const whatsappNumber = "50688146554";
+const sinpeNumber = "88146554";
+
+function getWhatsappLink(productName: string) {
+  const text = encodeURIComponent(`Hola! Quiero comprar: ${productName}`);
+  return `https://wa.me/${whatsappNumber}?text=${text}`;
+}
+---
+
+<Layout title="Tienda | Reto Playas CR">
+  <div class="bg-sand-light min-h-screen pt-24 pb-20">
+    <!-- Header -->
+    <div class="container mx-auto px-4 text-center mb-16">
+      <h1 class="font-display text-5xl md:text-7xl text-ocean-deep mb-4">Tienda Oficial</h1>
+      <p class="font-body text-xl text-text-secondary max-w-2xl mx-auto">
+        Cada compra financia el próximo viaje y nos ayuda a seguir documentando la costa.
+      </p>
+    </div>
+
+    <!-- Products Grid -->
+    <div class="container mx-auto px-4 mb-20">
+      {tiendaItems.length === 0 ? (
+        <div class="text-center py-12 bg-white rounded-xl shadow-sm">
+          <p class="text-xl text-text-secondary">Pronto tendremos productos disponibles.</p>
+        </div>
+      ) : (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {tiendaItems.map(item => (
+            <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow border border-sand-warm group">
+              <div class="relative aspect-square overflow-hidden bg-gray-100">
+                <img 
+                  src={item.data.image} 
+                  alt={item.data.title} 
+                  class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                />
+                {!item.data.available && (
+                  <div class="absolute inset-0 bg-white/60 flex items-center justify-center">
+                    <span class="bg-red-500 text-white px-4 py-2 font-bold uppercase tracking-widest text-sm transform -rotate-12">Agotado</span>
+                  </div>
+                )}
+              </div>
+              
+              <div class="p-6 text-center">
+                <h3 class="font-display text-2xl text-ocean-deep mb-2">{item.data.title}</h3>
+                <p class="font-body text-sunset-coral font-bold text-xl mb-4">
+                  ₡{item.data.price.toLocaleString()}
+                </p>
+                <p class="text-sm text-text-secondary mb-6 line-clamp-2 min-h-[2.5em]">
+                  {item.data.description}
+                </p>
+                
+                {item.data.available ? (
+                  <a 
+                    href={getWhatsappLink(item.data.title)}
+                    target="_blank"
+                    class="block w-full bg-ocean-deep hover:bg-ocean-mid text-white font-display uppercase tracking-wider py-3 rounded-lg transition-colors"
+                  >
+                    Pedir por WhatsApp
+                  </a>
+                ) : (
+                  <button disabled class="block w-full bg-gray-300 text-gray-500 font-display uppercase tracking-wider py-3 rounded-lg cursor-not-allowed">
+                    No Disponible
+                  </button>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+
+    <!-- How to Buy -->
+    <div class="container mx-auto px-4">
+      <div class="bg-ocean-deep text-white rounded-3xl p-8 md:p-12 text-center md:text-left relative overflow-hidden">
+        <!-- Decorational circle -->
+        <div class="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-white/5 rounded-full blur-3xl"></div>
+
+        <div class="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <div>
+            <h2 class="font-display text-4xl mb-6 text-sunset-gold">¿Cómo Comprar?</h2>
+            <ol class="space-y-6 font-body text-lg">
+              <li class="flex items-start">
+                <span class="flex-shrink-0 bg-white/10 w-8 h-8 rounded-full flex items-center justify-center mr-4 font-bold">1</span>
+                <span>Elige tu producto favorito de la lista.</span>
+              </li>
+              <li class="flex items-start">
+                <span class="flex-shrink-0 bg-white/10 w-8 h-8 rounded-full flex items-center justify-center mr-4 font-bold">2</span>
+                <span>Dale click a "Pedir por WhatsApp" para enviarme un mensaje directo.</span>
+              </li>
+              <li class="flex items-start">
+                <span class="flex-shrink-0 bg-white/10 w-8 h-8 rounded-full flex items-center justify-center mr-4 font-bold">3</span>
+                <span>Coordinamos el pago (Sinpe Móvil) y el envío por Correos de Costa Rica.</span>
+              </li>
+            </ol>
+            
+            <div class="mt-8 pt-8 border-t border-white/10">
+              <p class="text-ocean-foam mb-2">Sinpe Móvil Oficial:</p>
+              <p class="font-display text-3xl tracking-wider">{sinpeNumber}</p>
+            </div>
+          </div>
+          
+          <div class="hidden md:flex justify-center">
+            <!-- Illustration or Icon -->
+            <div class="text-[12rem] leading-none opacity-20">🛒</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+

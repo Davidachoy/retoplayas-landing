@@ -19,15 +19,14 @@ collections:
       - { name: "date", label: "Fecha de visita", widget: "datetime", required: false }
       - { name: "lat", label: "Latitud", widget: "number", value_type: "float", hint: "Ej: 10.3975" }
       - { name: "lng", label: "Longitud", widget: "number", value_type: "float", hint: "Ej: -85.8364" }
-      - { name: "image", label: "Foto principal", widget: "image" }
-      - { name: "description", label: "Descripción corta", widget: "text" }
+      - { name: "description", label: "Descripción corta", widget: "text", required: false }
       - { name: "link", label: "Link externo (IG, TikTok, etc)", widget: "string", required: false }
-      - { name: "body", label: "Descripción larga", widget: "markdown", required: false }
+      - { name: "available", label: "Disponible", widget: "boolean", default: true }
 
-  # MERCH
-  - name: "merch"
-    label: "👕 Merch"
-    folder: "src/content/merch"
+  # TIENDA
+  - name: "tienda"
+    label: "🛒 Tienda"
+    folder: "src/content/tienda"
     create: true
     slug: "{{slug}}"
     fields:

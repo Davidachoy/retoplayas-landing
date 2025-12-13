@@ -9,9 +9,10 @@ const playasCollection = defineCollection({
     date: z.date().optional(),
     lat: z.number(),
     lng: z.number(),
-    image: z.string(),
-    description: z.string(),
+    image: z.string().optional(),
+    description: z.string().optional(),
     link: z.string().optional(),
+    available: z.boolean().default(true),
   }),
 });
 
@@ -27,7 +28,7 @@ const blogCollection = defineCollection({
   }),
 });
 
-const merchCollection = defineCollection({
+const tiendaCollection = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
@@ -38,22 +39,22 @@ const merchCollection = defineCollection({
   }),
 });
 
-const destacadoCollection = defineCollection({
-  type: 'content',
+const settingsCollection = defineCollection({
+  type: 'data',
   schema: z.object({
-    title: z.string(),
-    type: z.enum(['imagen', 'video', 'instagram', 'tiktok']),
-    image: z.string().optional(),
-    embedUrl: z.string().optional(),
-    link: z.string().optional(),
+    siteName: z.string().optional(),
+    totalPlayas: z.number().optional(),
+    whatsappNumber: z.string().optional(),
+    sinpeNumber: z.string().optional(),
+    heroVideo: z.string().optional(),
   }),
 });
 
 export const collections = {
   playas: playasCollection,
   blog: blogCollection,
-  merch: merchCollection,
-  destacado: destacadoCollection,
+  tienda: tiendaCollection,
+  settings: settingsCollection,
 };
 
 

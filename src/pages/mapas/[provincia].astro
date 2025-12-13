@@ -21,7 +21,9 @@ const { provincia } = Astro.params;
 
 // Get playas for this province
 const allPlayas = await getCollection('playas');
-const playasProvincia = allPlayas.filter(playa => playa.data.provincia === provincia);
+const playasProvincia = allPlayas.filter(playa => 
+  playa.data.provincia === provincia
+);
 
 const visitedCount = playasProvincia.filter(p => p.data.visitada).length;
 const totalCount = playasProvincia.length;

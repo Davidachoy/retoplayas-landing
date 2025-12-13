@@ -18,7 +18,7 @@ export const GET: APIRoute = async ({ site }) => {
     '/mapas/puntarenas',
     '/mapas/limon',
     '/blog',
-    '/merch',
+    '/tienda',
     '/sobre-mi',
   ];
   
@@ -56,3 +56,4 @@ ${uniquePages
     },
   });
 };
+
