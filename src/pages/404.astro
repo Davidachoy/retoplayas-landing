@@ -1,0 +1,33 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="404 - Página no encontrada | Reto Playas CR">
+  <div class="bg-sand-light min-h-screen pt-24 pb-20">
+    <div class="container mx-auto px-4 text-center">
+      <div class="max-w-2xl mx-auto">
+        <h1 class="font-display text-8xl md:text-9xl text-ocean-deep mb-4">404</h1>
+        <h2 class="font-display text-3xl md:text-4xl text-ocean-deep mb-6">
+          Página no encontrada
+        </h2>
+        <p class="font-body text-lg text-text-secondary mb-8">
+          Lo sentimos, la página que buscas no existe o ha sido movida.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a 
+            href="/" 
+            class="bg-ocean-deep text-white px-8 py-3 rounded-lg font-body font-medium hover:bg-ocean-deep/90 transition-colors"
+          >
+            Volver al inicio
+          </a>
+          <a 
+            href="/mapas" 
+            class="bg-sunset-coral text-white px-8 py-3 rounded-lg font-body font-medium hover:bg-sunset-coral/90 transition-colors"
+          >
+            Explorar mapas
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

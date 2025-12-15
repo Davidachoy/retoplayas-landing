@@ -109,3 +109,5 @@ if (errors.length === 0 && warnings.length === 0) {
   console.log(`   ❌ Errores: ${errors.length}`);
   console.log(`   ⚠️  Advertencias: ${warnings.length}`);
 }
+
+

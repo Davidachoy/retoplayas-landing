@@ -39,24 +39,40 @@ const links = [
       ))}
     </nav>
 
-    <!-- Mobile Menu Overlay -->
-    <div id="mobile-menu" class="fixed inset-0 bg-ocean-deep transform translate-x-full transition-transform duration-300 flex flex-col justify-center items-center md:hidden z-40">
-      <nav class="flex flex-col space-y-8 text-center">
-        {links.map((link) => (
-          <a href={link.href} class="text-white text-2xl font-display hover:text-sunset-gold transition-colors">
-            {link.name}
-          </a>
-        ))}
-      </nav>
-    </div>
   </div>
 </header>
+
+<!-- Mobile Menu Overlay - Fuera del header para mejor posicionamiento -->
+<div id="mobile-menu" class="fixed inset-0 bg-ocean-deep transform translate-x-full transition-transform duration-300 flex flex-col justify-center items-center md:hidden z-[60]">
+  <!-- Close Button -->
+  <button id="close-menu-btn" class="absolute top-6 right-6 text-white hover:text-sunset-gold transition-colors focus:outline-none z-10" aria-label="Cerrar menú">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+    </svg>
+  </button>
+  
+  <nav class="flex flex-col space-y-8 text-center">
+    {links.map((link) => (
+      <a href={link.href} class="text-white text-2xl font-display hover:text-sunset-gold transition-colors">
+        {link.name}
+      </a>
+    ))}
+  </nav>
+</div>
 
 <script>
   const header = document.getElementById('main-header');
   const menuBtn = document.getElementById('menu-btn');
   const mobileMenu = document.getElementById('mobile-menu');
+  const closeMenuBtn = document.getElementById('close-menu-btn');
   let isMenuOpen = false;
+
+  // Función para cerrar el menú
+  const closeMenu = () => {
+    isMenuOpen = false;
+    mobileMenu?.classList.add('translate-x-full');
+    document.body.style.overflow = '';
+  };
 
   // Scroll effect for glassmorphism
   window.addEventListener('scroll', () => {
@@ -78,6 +94,14 @@ const links = [
         mobileMenu.classList.add('bg-ocean-deep');
         // También aplicar inline style como respaldo
         mobileMenu.style.backgroundColor = '#1A3A4A'; // ocean-deep color
+        // Asegurar posicionamiento correcto desde el viewport
+        mobileMenu.style.position = 'fixed';
+        mobileMenu.style.top = '0';
+        mobileMenu.style.left = '0';
+        mobileMenu.style.right = '0';
+        mobileMenu.style.bottom = '0';
+        mobileMenu.style.width = '100vw';
+        mobileMenu.style.height = '100vh';
       }
       document.body.style.overflow = 'hidden';
     } else {
@@ -86,14 +110,13 @@ const links = [
     }
   });
 
+  // Cerrar menú con el botón X
+  closeMenuBtn?.addEventListener('click', closeMenu);
+
   // Cerrar menú al hacer clic en un link
   const menuLinks = mobileMenu?.querySelectorAll('a');
   menuLinks?.forEach(link => {
-    link.addEventListener('click', () => {
-      isMenuOpen = false;
-      mobileMenu?.classList.add('translate-x-full');
-      document.body.style.overflow = '';
-    });
+    link.addEventListener('click', closeMenu);
   });
 </script>
 

@@ -170,3 +170,5 @@ if (errorDetails.length > 0) {
   fs.writeFileSync(reportPath, JSON.stringify(errorDetails, null, 2), 'utf-8');
   console.log(`\n📄 Reporte de errores guardado en: ${reportPath}`);
 }
+
+

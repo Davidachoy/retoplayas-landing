@@ -2,11 +2,70 @@
   publish = "dist"
   command = "npm run build"
 
+# Security: Bloquear rutas de WordPress (bots maliciosos)
+[[redirects]]
+  from = "/wp-content/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/wp-includes/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/wp-admin/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+# Security: Bloquear archivos sensibles
+[[redirects]]
+  from = "/.git/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/.env"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/.env.*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+# Security: Bloquear otros intentos comunes de bots
+[[redirects]]
+  from = "/xmlrpc.php"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/wp-login.php"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/.well-known/traffic-advice"
+  to = "/404.html"
+  status = 404
+  force = true
+
+# Admin redirect
 [[redirects]]
   from = "/admin"
   to = "/admin/index.html"
   status = 200
 
+# Catch-all (debe ir al final)
 [[redirects]]
   from = "/*"
   to = "/index.html"
