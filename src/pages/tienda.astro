@@ -39,6 +39,9 @@ function getWhatsappLink(productName: string) {
                   src={item.data.image} 
                   alt={item.data.title} 
                   class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
+                  decoding="async"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
                 />
                 {!item.data.available && (
                   <div class="absolute inset-0 bg-white/60 flex items-center justify-center">

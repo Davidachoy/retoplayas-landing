@@ -50,11 +50,22 @@ const settingsCollection = defineCollection({
   }),
 });
 
+const destacadoCollection = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    description: z.string().optional(),
+    image: z.string().optional(),
+    link: z.string().optional(),
+  }),
+});
+
 export const collections = {
   playas: playasCollection,
   blog: blogCollection,
   tienda: tiendaCollection,
   settings: settingsCollection,
+  destacado: destacadoCollection,
 };
 
 

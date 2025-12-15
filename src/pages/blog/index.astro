@@ -48,6 +48,9 @@ const remainingPosts = sortedPosts.slice(1);
                   src={featuredPost.data.image} 
                   alt={featuredPost.data.title} 
                   class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+                  loading="eager"
+                  decoding="async"
+                  fetchpriority="high"
                 />
               </div>
               
@@ -81,6 +84,9 @@ const remainingPosts = sortedPosts.slice(1);
                     src={post.data.image} 
                     alt={post.data.title} 
                     class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                    loading="lazy"
+                    decoding="async"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
                 </div>
                 <div class="p-6 flex-grow flex flex-col">
